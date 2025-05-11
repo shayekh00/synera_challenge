@@ -28,7 +28,7 @@ workflow.set_entry_point("load")
 # Wire the node flow
 workflow.add_edge("load", "retrieve")
 workflow.add_edge("retrieve", "reason")
-workflow.add_edge("reason", "update_memory")  # 🔁 Add memory update here
+workflow.add_edge("reason", "update_memory")  
 
 # Compile the graph
 graph = workflow.compile()

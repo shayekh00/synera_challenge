@@ -1,23 +1,26 @@
 from agent_state import AgentState
 
 import re
-def extract_code_only(text: str) -> str:
-    lines = text.splitlines()
-    return "\n".join([
-        line for line in lines 
-        if re.match(r"^\s*\w[\w\d_]*\s*=\s*\w[\w\d_]*\(.*\)$", line.strip()) or 
-           re.match(r"^\s*\w[\w\d_]*,\s*\w[\w\d_]*\s*=\s*\w[\w\d_]*\(.*\)$", line.strip())
-    ])
 
 
-def extract_code_block_only(workflow_text: str) -> str:
+def extract_code_block_only(text: str) -> str:
     """
-    Extracts just the first Python code block from a mixed description/code string.
+    Extracts the first Python (or generic) code block from text using triple backticks.
+    Prioritizes ```python blocks, falls back to ``` blocks if necessary.
     """
-    match = re.search(r"```python(.*?)```", workflow_text, re.DOTALL)
+    # Try to extract ```python ... ``` first
+    match = re.search(r"```python\s*(.*?)```", text, re.DOTALL | re.IGNORECASE)
     if match:
         return match.group(1).strip()
-    return workflow_text.strip()  # fallback: return whole thing if no code block found
+
+    # Fallback: extract any triple-backtick code block
+    match = re.search(r"```\s*(.*?)```", text, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+
+    # No code block found
+    return ""  # Explicitly return empty string if no block is found
+
 
 def format_output(state: AgentState) -> AgentState:
     workflow_text = state["retrieved_workflows"]

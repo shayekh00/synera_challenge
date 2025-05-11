@@ -8,7 +8,7 @@ PLANNER_PROMPT = """
 
 "{user_prompt}"
 
-Wrte ONLY python code only using Example Usage snippet from the {tool_summaries}.
+Wrte ONLY python code only using Example Usage snippet from all the {tool_summaries}.
 
 NOTHING ELSE.
 """

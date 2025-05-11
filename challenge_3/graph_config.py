@@ -2,8 +2,6 @@ from langgraph.graph import StateGraph
 from agent_state import AgentState
 from agents.tool_retriever import retrieve_relevant_tools
 from agents.workflow_retriever import retrieve_example_workflows
-from agents.planner import generate_plan
-from agents.validator import validate_plan
 from agents.formatter import format_output
 from agents.explainer import explain_code
 
@@ -11,8 +9,6 @@ graph = StateGraph(AgentState)
 
 graph.add_node("tool_retriever", retrieve_relevant_tools)
 graph.add_node("workflow_retriever", retrieve_example_workflows)
-graph.add_node("planner", generate_plan)
-graph.add_node("validator", validate_plan)
 graph.add_node("formatter", format_output)
 graph.add_node("explainer", explain_code)
 
