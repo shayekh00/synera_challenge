@@ -1,4 +1,6 @@
 # types/agent_state.py
+from langchain_core.documents import Document
+from typing import TypedDict, List, Union
 
 from typing import TypedDict, Optional, List
 

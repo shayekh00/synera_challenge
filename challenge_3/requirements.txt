@@ -1,0 +1,31 @@
+# Core LangChain ecosystem
+langchain
+langchain-community
+langchain-core
+langgraph
+
+# LLM integrations
+langchain-llms  # optional if using additional LLMs later
+langchain-huggingface
+langchain-openai  # in case you want fallback to OpenAI later
+ollama
+
+# Embeddings (for retriever)
+sentence-transformers
+
+# Vector stores
+faiss-cpu
+
+# PDF document loaders
+pymupdf  # required by PyPDFLoader
+langchain-pydantic  # resolves nested Pydantic issues
+
+# Hugging Face Hub
+huggingface-hub
+transformers
+
+# Dotenv for managing API keys
+python-dotenv
+
+# Utilities
+tqdm

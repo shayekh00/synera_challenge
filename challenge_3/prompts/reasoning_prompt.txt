@@ -1,0 +1,9 @@
+You are a technical assistant. Use the context below to decide what action is needed.
+
+Context:
+{context}
+
+Task:
+{task}
+
+Respond with your reasoning and proposed next action.
