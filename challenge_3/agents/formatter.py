@@ -10,13 +10,25 @@ def extract_code_only(text: str) -> str:
     ])
 
 
+def extract_code_block_only(workflow_text: str) -> str:
+    """
+    Extracts just the first Python code block from a mixed description/code string.
+    """
+    match = re.search(r"```python(.*?)```", workflow_text, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return workflow_text.strip()  # fallback: return whole thing if no code block found
+
 def format_output(state: AgentState) -> AgentState:
-    # clean_workflow = extract_code_only(state["structured_plan"])
+    workflow_text = state["retrieved_workflows"]
+    extracted_code = extract_code_block_only(workflow_text)
+
     return {
         **state,
         "final_output": {
             "Title": state["user_query"],
             "Description": f"This workflow was generated for the task: {state['description']}",
-            "workflow": state["retrieved_workflows"]
+            "workflow": extracted_code
         }
     }
+
