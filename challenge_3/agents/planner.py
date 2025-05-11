@@ -11,9 +11,7 @@ The user has requested:
 "{prompt}"
 
 You may only use tools described below, as if they are Python functions. 
-Each tool must be used by assigning its output to a variable, like:
-
-output = tool_name(arg1, arg2)
+Only modify the tools if absolutely necessary to fit the user's request or else keep them as is.
 
 Use only the tools provided here:
 {tools}
@@ -32,6 +30,8 @@ def generate_plan(state: AgentState) -> AgentState:
         tools="\n".join(state["retrieved_tools"]),
         examples="\n".join(state.get("retrieved_workflows", []))  
     )
+
     result = llm.invoke(prompt).strip()
+    print("Generated Plan:", result)  # Debugging line
     return {**state, "structured_plan": result}
 

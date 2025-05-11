@@ -11,12 +11,12 @@ def extract_code_only(text: str) -> str:
 
 
 def format_output(state: AgentState) -> AgentState:
-    clean_workflow = extract_code_only(state["structured_plan"])
+    # clean_workflow = extract_code_only(state["structured_plan"])
     return {
         **state,
         "final_output": {
             "Title": state["user_query"],
-            "Description": f"This workflow was generated for the task: {state['user_query']}",
-            "workflow": clean_workflow
+            "Description": f"This workflow was generated for the task: {state['description']}",
+            "workflow": state["retrieved_workflows"]
         }
     }

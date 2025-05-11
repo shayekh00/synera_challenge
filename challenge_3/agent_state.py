@@ -5,6 +5,7 @@ from langchain_core.documents import Document
 class AgentState(TypedDict):
     user_query: str
     retrieved_tools: List[str]
+    description: Optional[str]
     retrieved_workflows: List[str]
     structured_plan: Optional[str]
     validation_errors: List[str]

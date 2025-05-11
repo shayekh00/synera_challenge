@@ -5,6 +5,7 @@ from agents.workflow_retriever import retrieve_example_workflows
 from agents.planner import generate_plan
 from agents.validator import validate_plan
 from agents.formatter import format_output
+from agents.explainer import explain_code
 
 graph = StateGraph(AgentState)
 
@@ -13,11 +14,11 @@ graph.add_node("workflow_retriever", retrieve_example_workflows)
 graph.add_node("planner", generate_plan)
 graph.add_node("validator", validate_plan)
 graph.add_node("formatter", format_output)
+graph.add_node("explainer", explain_code)
 
 graph.set_entry_point("tool_retriever")
 graph.add_edge("tool_retriever", "workflow_retriever")
-graph.add_edge("workflow_retriever", "planner")
-graph.add_edge("planner", "validator")
-graph.add_edge("validator", "formatter")
+graph.add_edge("workflow_retriever", "explainer")
+graph.add_edge("explainer", "formatter")
 
 compiled_graph = graph.compile()
