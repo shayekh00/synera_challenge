@@ -10,16 +10,14 @@ This repository contains modular solutions to the Synera Agent Challenge, using 
 SYNERA_CHALLENGE/
 ├── challenge_1/
 │   ├── agents/            # Core agent definitions
-│   ├── configs/           # Configurations (e.g., model paths, agent settings)
 │   ├── docs/              # Sample documents (e.g., PDFs for input)
 │   ├── loaders/           # File and document loaders
 │   ├── memory/            # Memory modules (e.g., vector storage, history)
 │   ├── prompts/           # Prompt templates used by the agent
 │   ├── tests/             # Unit and integration tests
-│   ├── types/             # Type definitions and models
 │   ├── agent_state.py     # State schema for LangGraph agents
 │   ├── graph_config.py    # LangGraph structure and node wiring
-│   └── main.py            # Entrypoint for running the agent
+│   └── main.py <----------# Entrypoint for running the agent<------------------------
 │
 ├── challenge_2/
 │   └── (same structure as challenge_1, extended with more capabilities)
