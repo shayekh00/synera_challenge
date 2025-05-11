@@ -61,9 +61,29 @@ pip install -r requirements.txt
 Create a `.env` file in each challenge folder (or at the root if shared), and add relevant API keys or config variables:
 
 ```
-OLLAMA_BASE_URL=http://localhost:11434
-LLM_MODEL=llama3
+HF_API_KEY= XXXXXXXX
 ```
+
+
+---
+
+### 🔧 LLM Backend Setup (Ollama)
+
+This project uses [Ollama](https://ollama.com/) to run local language models. Before starting the agent, make sure Ollama is installed and running with the `tinyllama` model.
+
+#### 1. Install Ollama
+
+Follow platform-specific instructions at:  
+👉 https://ollama.com/download
+
+#### 2. Start the Ollama server
+
+```bash
+ollama serve
+ollama pull tinyllama
+
+```
+
 
 ### 5. Run the Agent
 
