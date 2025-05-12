@@ -32,9 +32,20 @@ if __name__ == "__main__":
         "short_term_buffer": [],
         "summary_memory": [],
         "vector_store": initialize_vector_store(),
-        "latest_message": ""
+        "latest_message": "",
+        "memory_active": False,
     }
 
     result = graph.invoke(initial_state)
-    print("Final Agent Output:")
+    print("🟢 First Run Output:")
     print(result["latest_message"])
+
+        # Prepare for second run
+    result["user_query"] = "What materials are better than aluminum for high temperatures?"
+    result["documents"] = []  # Maybe no new docs
+    result["latest_message"] = ""  # Reset message field
+
+    # Second run
+    result2 = graph.invoke(result)
+    print("🟡 Second Run Output (using memory):")
+    print(result2["latest_message"])

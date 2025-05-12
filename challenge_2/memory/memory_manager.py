@@ -21,9 +21,31 @@ def add_messages_to_vector_store(messages: List[str], vector_store: FAISS):
     chunks = text_splitter.split_documents(docs)
     vector_store.add_documents(chunks)
 
-def retrieve_relevant_memory(query: str, vector_store: FAISS, k=5) -> List[str]:
-    top_docs = vector_store.similarity_search(query, k=k)
-    return [doc.page_content for doc in top_docs]
+# def retrieve_relevant_memory(query: str, vector_store: FAISS,state: Dict, k=5) -> List[str]:
+#     top_docs = vector_store.similarity_search(query, k=k)
+#     return [doc.page_content for doc in top_docs]
+
+def retrieve_relevant_memory(query: str, vector_store: FAISS, state: Dict, k=5) -> List[str]:
+    vector_store = state["vector_store"]
+    summary_memory = state.get("summary_memory", [])
+    short_term_buffer = state.get("short_term_buffer", [])
+
+    # Vector store retrieval
+    vector_chunks = vector_store.similarity_search(query, k=k)
+    vector_texts = [doc.page_content for doc in vector_chunks]
+
+    # Search summaries (simple keyword match, or vector embed + search)
+    summary_hits = [
+        doc.page_content for doc in summary_memory
+        if query.lower() in doc.page_content.lower()
+    ]
+
+    # Combine recent short-term memory (fresh context)
+    buffer_context = short_term_buffer[-k:]
+
+    # Merge all sources
+    return buffer_context + summary_hits + vector_texts
+
 
 def summarize_messages(messages: List[str]) -> str:
     prompt = """Summarize the following agent interaction history:
@@ -49,5 +71,7 @@ def manage_memory(state: Dict, max_short_term: int = 5) -> Dict:
             summary = summarize_messages(buffer[:-max_short_term])
             summary_doc = Document(page_content=summary, metadata={"type": "summary"})
             state.setdefault("summary_memory", []).append(summary_doc)
+
+    state["memory_active"] = True
 
     return state
