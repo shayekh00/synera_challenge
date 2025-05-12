@@ -3,7 +3,9 @@
 from pathlib import Path
 from langchain_core.documents import Document
 from agent_state import AgentState
-
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
 # Text & tabular loaders
 from langchain_community.document_loaders import (
     PyPDFLoader,
@@ -57,4 +59,11 @@ def load_documents(state: AgentState) -> AgentState:
         if not loader:
             raise ValueError(f"❌ Unsupported file type: {ext}")
         docs.extend(loader(path))
-    return {**state, "documents": docs}
+
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    chunks = splitter.split_documents(docs)
+
+    embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    db = FAISS.from_documents(chunks, embedding_model)
+
+    return {**state, "vectorstore": db}
