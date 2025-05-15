@@ -4,6 +4,19 @@ This repository contains modular solutions to the Synera Agent Challenge, using 
 
 ---
 
+##Architecture Overview
+# Challenge 1 : How to enable an Agent to use a context source before calling tools ?
+
+![image](https://github.com/user-attachments/assets/36d1eb02-f997-460c-9fcb-8486b83f03b5)
+
+
+# Challenge 2 :How to enable agents to have the right context when the message history size between multi agents explode?
+![image](https://github.com/user-attachments/assets/ede3f5a0-ef79-43be-966e-b3a2f0d99fcc)
+
+# Challenge 3 :If we have 1000s of tool workflows, how can we enable users to generate a workflow from simple prompt? 
+![image](https://github.com/user-attachments/assets/d3faa000-f735-42ef-b22f-f328383689a6)
+
+
 ## 📁 Repository Structure
 
 ```
