@@ -125,7 +125,6 @@ pytest tests/
 
 ---
 
-## 💪 Roadmap
 
 ## 💪 Roadmap
 
